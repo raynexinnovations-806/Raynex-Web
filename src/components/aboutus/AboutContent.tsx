@@ -72,9 +72,9 @@ const AboutContent = () => {
                 </div>
               </div>
               <div className="mt-8 text-xl text-common-black">
-                Raynex Power Solution is a leading business enterprise with
+                Raynex Power Solution is a leading business enterprise with
                 business interests closely aligned with the global energy
-                transition journey. We are one of India’s largest  renewable
+                transition journey. We are one of India&apos;s largest renewable
                 power generators, and have expanded our presence in Solar And
                 Windmill projects, Green Hydrogen & its Derivatives like Green
                 Ammonia, Green Methanol and Sustainable Aviation Fuel and Pumped
@@ -90,7 +90,7 @@ const AboutContent = () => {
           <div className="flex flex-col lg:w-1/2 xl:w-2/5">
             <div className="flex flex-col gap-6">
               <span className="text-[22px] font-semibold text-lightGreen">
-                Raynex Power Solution’s
+                Raynex Power Solution&apos;s
               </span>
               <span className="flex flex-col text-[68px] leading-[68px] font-semibold text-primaryText">
                 Mission &<span className="text-lightGreen">Vision</span>
@@ -139,7 +139,7 @@ const AboutContent = () => {
                 • Sustainability:{" "}
                 <span className="font-normal">
                   We believe that everyone should have access to clean energy,
-                  which is why we're committed to making solar energy a reality
+                  which is why we&apos;re committed to making solar energy a reality
                   for all. Every panel installed is a step toward a more
                   sustainable planet.
                 </span>
@@ -147,9 +147,9 @@ const AboutContent = () => {
               <div className="text-base font-semibold text-common-black/80">
                 • Customer Commitment:{" "}
                 <span className="font-normal">
-                  We're not just providing solar solutions-we're building
+                  We&apos;re not just providing solar solutions-we&apos;re building
                   lasting relationships. From consultation to installation and
-                  beyond, we're with you every step of the way, delivering
+                  beyond, we&apos;re with you every step of the way, delivering
                   exceptional service and support.
                 </span>
               </div>

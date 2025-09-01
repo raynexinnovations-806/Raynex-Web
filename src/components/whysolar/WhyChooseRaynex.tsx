@@ -87,7 +87,7 @@ const WhyChooseRaynex = () => {
             <div className="text-xl text-common-black/80 text-center">
               Raynexps provides global free Wi-Fi monitoring for solar systems,
               facilitating easy tracking of solar power performance.
-              Effortlessly monitor your system's efficiency.
+              Effortlessly monitor your system&apos;s efficiency.
             </div>
           </div>
         </div>

@@ -7,6 +7,7 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import Head from "next/head";
+import Script from "next/script";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -16,7 +17,9 @@ export default function App({ Component, pageProps }: AppProps) {
           <Wrapper>
             <Head>
               {/* Google Tag Manager */}
-              <script
+              <Script
+                id="gtm-script"
+                strategy="afterInteractive"
                 dangerouslySetInnerHTML={{
                   __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
