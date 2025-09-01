@@ -14,13 +14,19 @@ function Fix-ApostrophesInFile {
     $content = Get-Content $FilePath -Raw -Encoding UTF8
     
     # Replace unescaped apostrophes with HTML entities
-    $fixedContent = $content -replace "([^&])'([^a-zA-Z])", "`$1&apos;`$2"
-    $fixedContent = $fixedContent -replace "([^&])'([^a-zA-Z])", "`$1&apos;`$2"
+    # Notes:
+    # - Use single-quoted strings so $1, $2 remain literal replacement groups
+    # - In the character class, escape & for PowerShell as `&
+    # - To include a literal apostrophe inside a single-quoted string, double it: ''
+    $fixedContent = $content -replace '([^`&])''([^a-zA-Z])', '$1&apos;$2'
     
-    # Write back to file
-    Set-Content $FilePath $fixedContent -Encoding UTF8
-    
-    Write-Host "✅ Fixed apostrophes in: $FilePath" -ForegroundColor Green
+    # Write back to file only if changed
+    if ($fixedContent -ne $content) {
+        Set-Content $FilePath $fixedContent -Encoding UTF8
+        Write-Host "✅ Fixed apostrophes in: $FilePath" -ForegroundColor Green
+    } else {
+        Write-Host "ℹ️  No changes needed: $FilePath" -ForegroundColor DarkYellow
+    }
 }
 
 # Get all TypeScript/TSX files
