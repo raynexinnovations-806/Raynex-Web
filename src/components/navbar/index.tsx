@@ -25,6 +25,12 @@ const navBarItems = [
   {
     name: "Services",
     path: "#servicesComponent",
+    subNav: [
+      { name: "Residential", path: "/services/residential" },
+      { name: "Commercial", path: "/services/commercial" },
+      { name: "Industrial", path: "/services/industrial" },
+      { name: "Ground-Mounted", path: "/services/ground-mounted" },
+    ],
   },
   {
     name: "About Us",
@@ -110,19 +116,34 @@ const Navbar = ({
         {/* Desktop Links */}
         <div className="hidden lg:flex gap-6 xl:gap-10 items-center">
           {navBarItems.map((item) => (
-            <span
-              key={item.name}
-              className={`text-lg font-bold ${
-                path.contactUs === router.pathname
-                  ? "text-common-white"
-                  : "text-common-black"
-              } hover:underline hover:text-lightGreen cursor-pointer ${
-                item.path === router.pathname && "text-lightGreen "
-              }`}
-              onClick={() => handleNavigation(item)}
-            >
-              {item.name}
-            </span>
+            <div key={item.name} className="relative group">
+              <span
+                className={`text-lg font-bold ${
+                  path.contactUs === router.pathname
+                    ? "text-common-white"
+                    : "text-common-black"
+                } hover:underline hover:text-lightGreen cursor-pointer ${
+                  item.path === router.pathname && "text-lightGreen "
+                }`}
+                onClick={() => handleNavigation(item)}
+              >
+                {item.name}
+              </span>
+              {/* Dropdown for Services */}
+              {item.name === "Services" && item.subNav && (
+                <div className="absolute left-0 w-48 bg-white shadow-lg rounded-lg py-2 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity z-50">
+                  {item.subNav.map((subItem) => (
+                    <div
+                      key={subItem.name}
+                      className="px-4 py-2 text-black hover:bg-lightGreen hover:text-white cursor-pointer"
+                      onClick={() => router.push(subItem.path)}
+                    >
+                      {subItem.name}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </div>
 
@@ -149,14 +170,29 @@ const Navbar = ({
       {isMenuOpen && (
         <div className="absolute top-0 left-0 w-full h-screen bg-common-black bg-opacity-75 z-50 flex flex-col items-center p-6 pt-16">
           {navBarItems.map((item) => (
-            <div
-              key={item.name}
-              className={`w-full border-b border-black-600 py-4 text-center text-lg font-bold text-common-white hover:text-lightGreen cursor-pointer  ${
-                item.path === router.pathname && "text-lightGreen "
-              }`}
-              onClick={() => handleNavigation(item)}
-            >
-              {item.name}
+            <div key={item.name} className="w-full">
+              <div
+                className={`border-b border-black-600 py-4 text-center text-lg font-bold text-common-white hover:text-lightGreen cursor-pointer  ${
+                  item.path === router.pathname && "text-lightGreen "
+                }`}
+                onClick={() => handleNavigation(item)}
+              >
+                {item.name}
+              </div>
+              {/* Mobile SubNav for Services */}
+              {item.name === "Services" && item.subNav && (
+                <div className="flex flex-col items-center bg-black bg-opacity-30">
+                  {item.subNav.map((subItem) => (
+                    <div
+                      key={subItem.name}
+                      className="w-full py-2 text-center text-base text-common-white hover:bg-lightGreen hover:text-white cursor-pointer"
+                      onClick={() => router.push(subItem.path)}
+                    >
+                      {subItem.name}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
           <button

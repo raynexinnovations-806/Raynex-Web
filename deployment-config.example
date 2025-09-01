@@ -1,0 +1,27 @@
+# 🚀 Deployment Configuration Example
+# Copy this file to deployment-config.local and fill in your actual values
+# NEVER commit the actual deployment-config.local file to Git!
+
+# Hostinger FTP Configuration (Required)
+HOSTINGER_FTP_HOST=yourdomain.com
+HOSTINGER_USERNAME=your_ftp_username
+HOSTINGER_FTP_PASSWORD=your_ftp_password
+
+# Website Configuration
+NEXT_PUBLIC_SITE_URL=https://yourdomain.com
+NEXT_PUBLIC_GA_ID=GA_MEASUREMENT_ID
+
+# Build Configuration
+NEXT_PUBLIC_ENVIRONMENT=production
+NEXT_PUBLIC_VERSION=$npm_package_version
+
+# Security (Optional)
+NEXT_PUBLIC_ENABLE_ANALYTICS=true
+NEXT_PUBLIC_ENABLE_ADS=true
+
+# ⚠️ IMPORTANT NOTES:
+# 1. Replace all placeholder values with your actual credentials
+# 2. Keep this file secure and never share it
+# 3. Use different credentials for staging/production
+# 4. Regularly rotate your FTP passwords
+# 5. Hostinger doesn't have API options, so we use FTP only

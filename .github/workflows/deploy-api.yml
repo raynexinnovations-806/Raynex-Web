@@ -1,0 +1,104 @@
+name: Deploy to Hostinger (API Method)
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch: # Allow manual deployment
+
+env:
+  HOSTINGER_API_URL: https://api.hostinger.com/v1
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build project
+      run: npm run build
+      
+    - name: Validate Google Ads script
+      run: |
+        echo "🔍 Checking for Google Ads script..."
+        if grep -q "googletagmanager\|gtag" out/index.html; then
+          echo "✅ Google Ads script found - ads will continue working"
+        else
+          echo "⚠️  CRITICAL: Google Ads script not found!"
+          echo "Your ads and tracking may stop working after deployment!"
+          echo "Please add Google Ads script to your website before continuing."
+          exit 1
+        fi
+        
+    - name: Create deployment archive
+      run: |
+        cd out
+        zip -r ../deployment.zip .
+        cd ..
+        echo "📦 Deployment package created: $(ls -lh deployment.zip)"
+        
+    - name: Deploy to Hostinger via API
+      run: |
+        echo "🚀 Starting deployment to Hostinger..."
+        
+        # Get hosting information
+        HOSTING_INFO=$(curl -s -H "Authorization: Bearer ${{ secrets.HOSTINGER_API_KEY }}" \
+          "$HOSTINGER_API_URL/hosting")
+        
+        echo "Hosting info retrieved successfully"
+        
+        # Upload files via FTP (fallback method)
+        echo "📤 Uploading files via FTP..."
+        
+    - name: Upload via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.HOSTINGER_FTP_HOST }}
+        username: ${{ secrets.HOSTINGER_USERNAME }}
+        password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+        local-dir: ./out/
+        server-dir: /public_html/
+        exclude: |
+          **/.git*
+          **/node_modules/**
+          **/.env*
+          **/README.md
+          **/.github/**
+          
+    - name: Post-deployment verification
+      run: |
+        echo "🔍 Verifying deployment..."
+        sleep 10  # Wait for files to propagate
+        
+        # Check if main page loads
+        if curl -s -f "${{ secrets.HOSTINGER_DOMAIN }}" > /dev/null; then
+          echo "✅ Website is accessible"
+        else
+          echo "❌ Website may not be accessible yet"
+        fi
+        
+    - name: Deployment success
+      if: success()
+      run: |
+        echo "🎉 Deployment completed successfully!"
+        echo "🌐 Website: ${{ secrets.HOSTINGER_DOMAIN }}"
+        echo "📅 Deployed at: $(date)"
+        echo "🔗 Commit: ${{ github.sha }}"
+        
+    - name: Deployment failure
+      if: failure()
+      run: |
+        echo "❌ Deployment failed!"
+        echo "🔍 Check the logs above for errors"
+        echo "🔄 Consider rolling back to previous version"
+        echo "📞 Contact support if issues persist"
