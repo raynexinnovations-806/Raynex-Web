@@ -25,15 +25,15 @@ jobs:
     - name: Build project
       run: npm run build
       
-    - name: Validate Google Ads script
+    - name: Validate Google Tag Manager script
       run: |
-        echo "🔍 Checking for Google Ads script..."
-        if grep -q "googletagmanager\|gtag" out/index.html; then
-          echo "✅ Google Ads script found - ads will continue working"
+        echo "🔍 Checking for Google Tag Manager script..."
+        if grep -q "GTM-KFQ69JG5\|googletagmanager" out/index.html; then
+          echo "✅ Google Tag Manager script found - ads will continue working"
         else
-          echo "⚠️  CRITICAL: Google Ads script not found!"
+          echo "⚠️  CRITICAL: Google Tag Manager script not found!"
           echo "Your ads and tracking may stop working after deployment!"
-          echo "Please add Google Ads script to your website before continuing."
+          echo "Please ensure GTM script is added to your website before continuing."
           exit 1
         fi
         

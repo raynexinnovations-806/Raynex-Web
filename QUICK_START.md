@@ -2,28 +2,13 @@
 
 ## ⚡ Immediate Actions Required
 
-### 1. **CRITICAL: Update Google Ads Script ID**
-The Google Ads script has been added to your `src/pages/_app.tsx` file. **You MUST replace `GA_MEASUREMENT_ID` with your actual Google Analytics ID:**
+### 1. **✅ Google Tag Manager Script Already Added!**
+I've already added your Google Tag Manager (GTM) code to your website:
+- **GTM ID**: `GTM-KFQ69JG5` ✅
+- **Script added to**: `src/pages/_app.tsx` ✅
+- **Noscript added to**: `src/pages/_document.tsx` ✅
 
-```tsx
-// In src/pages/_app.tsx - Replace GA_MEASUREMENT_ID with your actual ID
-<script
-  async
-  src="https://www.googletagmanager.com/gtag/js?id=YOUR_ACTUAL_GA_ID"
-/>
-<script
-  dangerouslySetInnerHTML={{
-    __html: `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'YOUR_ACTUAL_GA_ID');
-    `,
-  }}
-/>
-```
-
-**Find your GA ID**: Go to Google Analytics → Admin → Property Settings → Property ID
+**Your ads and tracking will continue working automatically!**
 
 ### 2. **Get Hostinger FTP Credentials**
 - FTP Host: `yourdomain.com`
@@ -43,7 +28,7 @@ HOSTINGER_DOMAIN = https://yourdomain.com
 ### 4. **Deploy!**
 ```bash
 git add .
-git commit -m "Setup CI/CD deployment"
+git commit -m "Setup CI/CD deployment with Google Tag Manager"
 git push origin main
 ```
 
@@ -58,10 +43,10 @@ git push origin main
 
 1. **Push triggers deployment** automatically
 2. **GitHub Actions builds** your Next.js project
-3. **Validates Google Ads script** presence
+3. **Validates Google Tag Manager script** presence
 4. **Files upload** to Hostinger via FTP
 5. **Website updates** in real-time
-6. **Google Ads continue working** (if ID updated)
+6. **Google Ads continue working** (GTM already configured)
 
 ## ⚠️ Important Notes
 
@@ -79,11 +64,11 @@ git push origin main
 
 ## 🔧 What I've Built for You
 
-1. **✅ Google Ads Script Added** - To `src/pages/_app.tsx`
+1. **✅ Google Tag Manager Script Added** - With your GTM-KFQ69JG5 ID
 2. **✅ GitHub Actions Workflow** - FTP deployment to Hostinger
 3. **✅ Configuration Files** - All setup guides and examples
-4. **✅ Validation** - Checks for Google Ads script before deployment
+4. **✅ GTM Validation** - Checks for GTM script before deployment
 
 ---
 
-**🚀 You're ready to deploy! Just update the Google Ads ID and push to GitHub.**
+**🚀 You're ready to deploy! Your GTM is already configured, just add the GitHub secrets and push!**

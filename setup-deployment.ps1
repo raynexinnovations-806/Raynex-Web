@@ -19,15 +19,15 @@ if (-not (Test-Path ".github\workflows\deploy.yml")) {
 
 Write-Host "✅ Deployment workflow found" -ForegroundColor Green
 
-# Check for Google Ads script
-Write-Host "🔍 Checking for Google Ads script..." -ForegroundColor Cyan
-$googleAdsFound = Get-ChildItem -Path "src" -Recurse -Include "*.tsx", "*.ts" | Select-String -Pattern "googletagmanager|gtag" -Quiet
+# Check for Google Tag Manager script
+Write-Host "🔍 Checking for Google Tag Manager script..." -ForegroundColor Cyan
+$gtmFound = Get-ChildItem -Path "src" -Recurse -Include "*.tsx", "*.ts" | Select-String -Pattern "GTM-KFQ69JG5|googletagmanager" -Quiet
 
-if ($googleAdsFound) {
-    Write-Host "✅ Google Ads script found in source code" -ForegroundColor Green
+if ($gtmFound) {
+    Write-Host "✅ Google Tag Manager script found in source code" -ForegroundColor Green
 } else {
-    Write-Host "⚠️  WARNING: Google Ads script not found in source code!" -ForegroundColor Yellow
-    Write-Host "Please add Google Ads script before deploying to maintain ad tracking."
+    Write-Host "⚠️  WARNING: Google Tag Manager script not found in source code!" -ForegroundColor Yellow
+    Write-Host "Please add GTM script before deploying to maintain ad tracking."
 }
 
 # Check build configuration
@@ -58,7 +58,7 @@ Write-Host "   - HOSTINGER_USERNAME" -ForegroundColor White
 Write-Host "   - HOSTINGER_FTP_PASSWORD" -ForegroundColor White
 Write-Host "   - HOSTINGER_DOMAIN" -ForegroundColor White
 Write-Host ""
-Write-Host "2. Ensure Google Ads script is properly added" -ForegroundColor White
+Write-Host "2. Ensure Google Tag Manager script is properly added" -ForegroundColor White
 Write-Host "3. Test build locally: npm run build" -ForegroundColor White
 Write-Host "4. Push to GitHub to trigger deployment" -ForegroundColor White
 Write-Host ""
