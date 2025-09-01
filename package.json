@@ -6,7 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:local": "npm run lint && npm run build && npm run preview",
+    "preview": "next start -p 3001",
+    "validate": "npm run lint && npm run build",
+    "check:gtm": "grep -r 'GTM-KFQ69JG5\\|googletagmanager' src/",
+    "predeploy": "npm run test:local",
+    "deploy:check": "npm run validate && npm run check:gtm"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",

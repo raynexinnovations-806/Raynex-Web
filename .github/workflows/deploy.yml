@@ -22,12 +22,39 @@ jobs:
     - name: Install dependencies
       run: npm ci
       
+    - name: Pre-deployment validation
+      run: |
+        echo "🔍 Running pre-deployment checks..."
+        
+        # Check for GTM script in source
+        echo "Checking Google Tag Manager script in source code..."
+        if grep -r "GTM-KFQ69JG5\|googletagmanager" src/ > /dev/null; then
+          echo "✅ GTM script found in source code"
+        else
+          echo "❌ GTM script missing from source code!"
+          exit 1
+        fi
+        
+        # Check build configuration
+        echo "Checking Next.js configuration..."
+        if grep -q "output.*export" next.config.js; then
+          echo "✅ Static export configured"
+        else
+          echo "❌ Static export not configured!"
+          exit 1
+        fi
+        
+        echo "✅ All pre-deployment checks passed"
+        
+    - name: Lint code
+      run: npm run lint
+      
     - name: Build project
       run: npm run build
       
     - name: Validate Google Tag Manager script
       run: |
-        echo "🔍 Checking for Google Tag Manager script..."
+        echo "🔍 Checking for Google Tag Manager script in built HTML..."
         if grep -q "GTM-KFQ69JG5\|googletagmanager" out/index.html; then
           echo "✅ Google Tag Manager script found - ads will continue working"
         else
@@ -79,6 +106,7 @@ jobs:
         echo "🌐 Website: ${{ secrets.HOSTINGER_DOMAIN }}"
         echo "📅 Deployed at: $(date)"
         echo "🔗 Commit: ${{ github.sha }}"
+        echo "✅ Google Tag Manager script validated and deployed"
         
     - name: Deployment failure
       if: failure()
@@ -87,3 +115,4 @@ jobs:
         echo "🔍 Check the logs above for errors"
         echo "🔄 Consider rolling back to previous version"
         echo "📞 Contact support if issues persist"
+        echo "💡 Tip: Run local testing with 'npm run test:local' before deploying"

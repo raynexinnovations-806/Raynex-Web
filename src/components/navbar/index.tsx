@@ -25,12 +25,6 @@ const navBarItems = [
   {
     name: "Services",
     path: "#servicesComponent",
-    subNav: [
-      { name: "Residential", path: "/services/residential" },
-      { name: "Commercial", path: "/services/commercial" },
-      { name: "Industrial", path: "/services/industrial" },
-      { name: "Ground-Mounted", path: "/services/ground-mounted" },
-    ],
   },
   {
     name: "About Us",
@@ -130,7 +124,7 @@ const Navbar = ({
                 {item.name}
               </span>
               {/* Dropdown for Services */}
-              {item.name === "Services" && item.subNav && (
+              {/* {item.name === "Services" && item.subNav && (
                 <div className="absolute left-0 w-48 bg-white shadow-lg rounded-lg py-2 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity z-50">
                   {item.subNav.map((subItem) => (
                     <div
@@ -142,7 +136,7 @@ const Navbar = ({
                     </div>
                   ))}
                 </div>
-              )}
+              )} */}
             </div>
           ))}
         </div>
@@ -180,7 +174,7 @@ const Navbar = ({
                 {item.name}
               </div>
               {/* Mobile SubNav for Services */}
-              {item.name === "Services" && item.subNav && (
+              {/* {item.name === "Services" && item.subNav && (
                 <div className="flex flex-col items-center bg-black bg-opacity-30">
                   {item.subNav.map((subItem) => (
                     <div
@@ -192,7 +186,7 @@ const Navbar = ({
                     </div>
                   ))}
                 </div>
-              )}
+              )} */}
             </div>
           ))}
           <button
