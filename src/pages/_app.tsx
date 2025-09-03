@@ -1,4 +1,5 @@
 import Notify from "@/components/shared/Notify";
+import dynamic from "next/dynamic";
 import AuthContext from "@/context/AuthContext";
 import Wrapper from "@/context/Wrapper";
 import { persistor, store } from "@/redux/store";
@@ -7,6 +8,10 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import Script from "next/script";
+
+const RaynexChatbot = dynamic(() => import("@/components/shared/RaynexChatbot"), {
+  ssr: false,
+});
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -29,6 +34,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             {/* End Google Tag Manager */}
             <Component {...pageProps} />
             <Notify />
+            <RaynexChatbot />
           </Wrapper>
         </AuthContext>
       </PersistGate>
