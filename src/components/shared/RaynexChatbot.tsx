@@ -232,7 +232,7 @@ const RaynexChatbot: React.FC = () => {
       };
 
       // Get API URL from environment
-      const API_URL = process.env.NEXT_PUBLIC_API_URL;
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://raynexps.com/api/submit-lead.php';
       
       if (!API_URL) {
         throw new Error('API URL not configured. Please check environment variables.');
