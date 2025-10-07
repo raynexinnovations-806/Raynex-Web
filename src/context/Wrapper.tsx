@@ -6,6 +6,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Hanken_Grotesk } from "next/font/google";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import { useAuthContext } from "./AuthContext";
 import CustomButton from "@/components/shared/CustomButton";
 import ContactBar from "@/components/contactbar";
@@ -22,6 +23,7 @@ const Wrapper = ({ children }: any) => {
   const [isNavbarExtended, setIsNavbarExtended] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollRef } = useAuthContext();
+  const router = useRouter();
 
   useEffect(() => {
     if (!scrollRef) return;
@@ -57,6 +59,25 @@ const Wrapper = ({ children }: any) => {
       }
     };
   }, []);
+
+  // Scroll to top of the custom scroll container on route change
+  useEffect(() => {
+    const handleRouteChange = () => {
+      if (scrollRef && scrollRef.current) {
+        try {
+          scrollRef.current.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
+        } catch (e) {
+          // fallback
+          scrollRef.current.scrollTop = 0;
+        }
+      }
+    };
+
+    router.events.on("routeChangeComplete", handleRouteChange);
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events, scrollRef]);
 
   return (
     <Provider store={store}>

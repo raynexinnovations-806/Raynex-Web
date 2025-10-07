@@ -12,6 +12,7 @@ import MailIcon from "@/utils/icons/common/MailIcon";
 import TwitterIcon from "@/utils/icons/common/TwitterIcon";
 import { ContactUsImage } from "@/utils/images/landingpage";
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 const ContactUs = () => {
   const [message, setMessage] = useState("");
@@ -20,6 +21,7 @@ const ContactUs = () => {
   const [email, setEmail] = useState("");
   const [mobileNo, setMobileNo] = useState("");
   const { sendToastNotification } = useAuthContext();
+  const router = useRouter();
 
   const handleSendMassageClick = async () => {
     // Regular expression for email validation
@@ -57,11 +59,14 @@ const ContactUs = () => {
 
     if (res.status === 200) {
       sendToastNotification("SUCCESS", "Message sent successfully!");
+      // Clear form
       setEmail("");
       setFirstName("");
       setLastName("");
       setMessage("");
       setMobileNo("");
+      // Redirect to thank you page
+      router.push("/thank-you");
     } else {
       sendToastNotification("ERROR", res.error);
     }
