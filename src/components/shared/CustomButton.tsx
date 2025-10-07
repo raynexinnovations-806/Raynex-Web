@@ -8,24 +8,26 @@ type Props = {
   endIcon?: React.ReactElement;
 } & ButtonProps;
 
-const CustomButton = (props: Props) => {
-  const { type, title, startIcon, endIcon, ...restProps } = props;
+const CustomButton = (props: React.PropsWithChildren<Props>) => {
+  const { type, title, startIcon, endIcon, children, ...restProps } = props;
+  const isFull = Boolean(restProps.fullWidth);
+
   return (
     <Button
-      type={type ? type : "button"}
+      type={type ?? "button"}
       sx={{
         display: "flex",
-        width: "100%",
+        width: isFull ? "100%" : "auto",
         justifyContent: "center",
         padding: "0px",
-        border: "1px solid",
+        // border: "1px solid",
         fontFamily: "'Inter', sans-serif",
       }}
-      startIcon={startIcon && startIcon}
-      endIcon={endIcon && endIcon}
+      startIcon={startIcon}
+      endIcon={endIcon}
       {...restProps}
     >
-      {title}
+      {children ?? title}
     </Button>
   );
 };
