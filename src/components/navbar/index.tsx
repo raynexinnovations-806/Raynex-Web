@@ -144,10 +144,10 @@ const Navbar = ({
         {/* Desktop Contact Button */}
         <div className="hidden lg:block">
           <button
-            className="py-2 px-3 bg-lightGreen text-common-white text-lg font-semibold"
-            onClick={() => router.push(path.contactUs)}
+            className="py-2 px-3 bg-lightGreen text-common-white text-lg font-semibold buzzing rounded-lg shadow-md transition-transform duration-300 glow-ring"
+            onClick={() => window.location.href = "https://calculator.raynexps.com/"}
           >
-            Contact Us
+            Get Your Solar Estimate
           </button>
         </div>
 
@@ -191,9 +191,9 @@ const Navbar = ({
           ))}
           <button
             className="w-fit mt-6 py-2 px-3 bg-lightGreen text-common-white text-lg font-semibold"
-            onClick={() => router.push(path.contactUs)}
+            onClick={() => window.location.href = "https://calculator.raynexps.com/"}
           >
-            Contact Us
+            Get Your Solar Estimate
           </button>
         </div>
       )}
